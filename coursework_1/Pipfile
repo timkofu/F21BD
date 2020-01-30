@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+neo4j = "*"
 
 [requires]
 python_version = "3.8"
