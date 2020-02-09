@@ -1,0 +1,61 @@
+\documentclass[12pt, a4paper]{report}
+
+% Preamble
+
+\usepackage[utf8]{inputenc} % Text is UTF8 Encodes
+\usepackage[T1]{fontenc} % T1 encoding for font
+\usepackage{lmodern} % Latin Modern Sans Serif across the document
+\usepackage[UKenglish]{babel} % Use UK English hyphenation rules
+
+% References
+\usepackage[style=authoryear-ibid,backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+% Image handling
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage{titlepic}
+
+% Front page setup
+\usepackage[dvipsnames]{xcolor} % Change text color
+\definecolor{namesColor}{HTML}{0086b3}
+
+\title{Group 6\\ F21BD Coursework One Report\\NoSQL Data Storage\\2019-2020}
+\author{
+\color{namesColor}{Ashwini Rao} \\
+\color{namesColor}{HWU\_ID}
+\color{namesColor}{DEGREE\_PROGRAMME}
+\and
+\color{namesColor}{Anwar Rizvi} \\
+\color{namesColor}{HWU\_ID} \\
+\color{namesColor}{DEGREE\_PROGRAMME}
+\and
+\color{namesColor}{Timothy Makobu} \\ 
+\color{namesColor}{H00296017} \\
+\color{namesColor}{MSc. Software Engineering}
+}
+\date{\today}
+\titlepic{\includegraphics[width=4cm]{HWUlogo}} % For including HWU logo in title page
+
+
+% Document
+
+\begin{document}
+
+% Front page rendering
+\maketitle	
+\tableofcontents
+
+\begin{abstract}
+	
+\end{abstract}
+
+% Content
+\input{chapters/chapter_1} % Task 1
+\input{chapters/chapter_2} % Task 2
+\input{chapters/chapter_3} % Task 3
+\input{chapters/chapter_4} % Task 4
+
+\printbibliography
+	
+\end{document}
