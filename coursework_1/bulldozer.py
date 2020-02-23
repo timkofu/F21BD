@@ -61,6 +61,22 @@ class CreateStructure(Task):
 class ImportData(Task):
     """ Task 2B: Import data from CSVs into the database """
 
+    def __constraints(self):
+        """ Create constraints"""
+        pass
+
+    def __entities(self):
+        """ Import and create entities"""
+        pass
+
+    def __relationships(self):
+        """ Import and create relationships"""
+        pass
+
+    def __indexes(self):
+        """ Create indexes """
+        pass
+
     def __call__(self):
         pass
 
