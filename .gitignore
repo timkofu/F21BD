@@ -132,4 +132,4 @@ dmypy.json
 .idea/
 
 # Mac SysFolders
-.DS_Store/
+.DS_Store

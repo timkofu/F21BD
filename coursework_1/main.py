@@ -2,7 +2,7 @@
 # F21BD Coursework 1 Source code
 
 # Bring out the cleaners
-from data_laundering import (
+from launderer import (
     Actors,
     Movies,
     Ratings,
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
             for cleaner in (Actors(), Movies(), Ratings(), RunningTimes(), MoviesToActors()):
                 print(f"Cleaning {cleaner.__class__.__name__}")
-                getattr(cleaner, 'clean')()
+                cleaner()
 
         # No? Let's proceed to the queries then
 
@@ -52,4 +52,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         exit()
     except Exception as e:
+        raise
         print(f"Error: {e}")
