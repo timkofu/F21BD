@@ -1,13 +1,20 @@
-""" Data cleaning """
+""" Data cleaning (Task 2A) """
 
 import os
 import re
 from string import capwords
 
-import pandas
+try:
+    import pandas
+except ImportError:
+    pandas = None  # To please PyCharm, but not needed
+    print("Please install Pandas: pip install pandas")
+    exit()
 
 
 class DataCleanup:
+    """ Base class """
+
     __slots__ = (
         'data_directory',
         'cleaned_file_prefix',
