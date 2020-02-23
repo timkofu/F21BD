@@ -1,9 +1,9 @@
 [0] Config.pm:304> INFO - This is Biber 2.12
-[0] Config.pm:307> INFO - Logfile is '/Users/timkofu/code_base/F21BD/coursework_1/docs/report/.texpadtmp/main.blg'
-[39] biber-darwin:315> INFO - === Sun Feb  9, 2020, 15:58:08
-[63] Biber.pm:371> INFO - Reading '/Users/timkofu/code_base/F21BD/coursework_1/docs/report/.texpadtmp/main.bcf'
-[151] Biber.pm:889> INFO - Found 0 citekeys in bib section 0
-[157] Utils.pm:193> WARN - The file '/Users/timkofu/code_base/F21BD/coursework_1/docs/report/.texpadtmp/main.bcf' does not contain any citations!
-[163] bbl.pm:636> INFO - Writing '/Users/timkofu/code_base/F21BD/coursework_1/docs/report/.texpadtmp/main.bbl' with encoding 'UTF-8'
-[163] bbl.pm:739> INFO - Output to /Users/timkofu/code_base/F21BD/coursework_1/docs/report/.texpadtmp/main.bbl
-[163] Biber.pm:110> INFO - WARNINGS: 1
+[1] Config.pm:307> INFO - Logfile is '/Users/timkofu/code_base/F21BD/coursework_1/docs/report/.texpadtmp/main.blg'
+[36] biber-darwin:315> INFO - === Sun Feb 23, 2020, 20:25:31
+[59] Biber.pm:371> INFO - Reading '/Users/timkofu/code_base/F21BD/coursework_1/docs/report/.texpadtmp/main.bcf'
+[143] Biber.pm:889> INFO - Found 0 citekeys in bib section 0
+[148] Utils.pm:193> WARN - The file '/Users/timkofu/code_base/F21BD/coursework_1/docs/report/.texpadtmp/main.bcf' does not contain any citations!
+[155] bbl.pm:636> INFO - Writing '/Users/timkofu/code_base/F21BD/coursework_1/docs/report/.texpadtmp/main.bbl' with encoding 'UTF-8'
+[155] bbl.pm:739> INFO - Output to /Users/timkofu/code_base/F21BD/coursework_1/docs/report/.texpadtmp/main.bbl
+[155] Biber.pm:110> INFO - WARNINGS: 1
