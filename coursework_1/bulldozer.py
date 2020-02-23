@@ -97,4 +97,3 @@ class Queries(Task):
     def __call__(self):
         """ Execute the queries and print results """
         pass
-
