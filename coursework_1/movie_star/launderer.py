@@ -2,7 +2,6 @@
 
 import os
 import re
-import string
 from string import capwords
 
 try:
@@ -12,50 +11,21 @@ except ImportError:
     print("Please install Pandas: pip install pandas")
     exit()
 
+from movie_star import DATA_DIRECTORY
+
 
 class DataCleanup:
     """ Base class """
 
     __slots__ = (
-        'data_directory',
+        'DATA_DIRECTORY',
         'cleaned_file_prefix',
     )
 
     def __init__(self):
 
-        # All child instances need the data directory
-        self.data_directory = os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), 'data'
-        )
-
         # And the prefix of the cleaned file
         self.cleaned_file_prefix = '_cleaned_'
-
-        # Check existance of data files
-        if not os.path.isdir(self.data_directory):
-            print(
-                f"Data directory doesn't exist.{os.linesep}"
-                f"Please create a directory called data and put the data files inside it."
-            )
-            exit()
-
-        # We have the directory, but do we have the data files?
-        expected_data_files = [
-            'directors.csv',
-            'moviestoactors.csv',
-            'moviestowriters.csv',
-            'runningtimes.csv',
-            'actors.csv',
-            'movies.csv',
-            'moviestodirectors.csv',
-            'ratings.csv',
-            'writers.csv'
-        ]
-
-        for d in expected_data_files:
-            if not os.path.isfile(os.path.join(self.data_directory, d)):
-                print(f"{d} is missing.")
-                exit()
 
     # The cleaner
     def clean(self, file_name, cleaner_function, index_column, as_str_column=None):
@@ -65,7 +35,7 @@ class DataCleanup:
 
         # Read the file
         dataframe = pandas.read_csv(
-            os.path.join(self.data_directory, file_name),
+            os.path.join(DATA_DIRECTORY, file_name),
             index_col=index_column, sep=';'
         )
 
@@ -78,7 +48,7 @@ class DataCleanup:
 
         # Save the cleaned data back to csv
         dataframe.to_csv(
-            os.path.join(self.data_directory, self.cleaned_file_prefix + file_name)
+            os.path.join(DATA_DIRECTORY, self.cleaned_file_prefix + file_name)
         )
 
 

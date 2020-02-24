@@ -1,1 +1,1 @@
-python main.py
+python -p movie_star
