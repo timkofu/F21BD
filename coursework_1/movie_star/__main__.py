@@ -2,7 +2,7 @@
 # F21BD Coursework 1 Source code
 
 # Bring out the cleaners
-from launderer import (
+from movie_star.launderer import (
     Actors,
     Movies,
     Ratings,
@@ -10,7 +10,7 @@ from launderer import (
     MoviesToActors
 )
 
-from bulldozer import (
+from movie_star.bulldozer import (
     Queries,
     ImportData,
     CreateStructure
@@ -52,5 +52,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         exit()
     except Exception as e:
-        raise
-        print(f"Error: {e}")
+        print(f"\nError: {e}\n")
