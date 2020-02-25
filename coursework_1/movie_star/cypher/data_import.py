@@ -81,7 +81,7 @@ DATA_IMPORT = {
             # Running Time
             "running_time": f"""
                 // USING PERIODIC COMMIT 1024
-                LOAD CSV WITH HEADERS FROM "file://""" + file_path_generator("_cleaned_running_times") + """" AS row FIELDTERMINATOR ';'
+                LOAD CSV WITH HEADERS FROM "file://""" + file_path_generator("_cleaned_runningtimes") + """" AS row FIELDTERMINATOR ';'
                 MERGE (rt:RunningTime {movieid: toInteger(row.movieid), country: row.country, addition: row.addition, time: toInteger(row.time)})
                 RETURN count(rt)
             """
@@ -93,42 +93,38 @@ DATA_IMPORT = {
 
             # Movie -> Rating
             "movie_rating": """
-                USING PERIODIC COMMIT 1024
+                // USING PERIODIC COMMIT 1024
                 LOAD CSV WITH HEADERS FROM "file://""" + file_path_generator("_cleaned_ratings") + """" AS row FIELDTERMINATOR ';'
-                WITH movieid = toInteger(row.movieid)
-                MATCH (m:Movie {id: movieid})
-                MATCH (r:Rating {movieid: movieid})
+                MATCH (m:Movie {id: toInteger(row.movieid)})
+                MATCH (r:Rating {movieid: toInteger(row.movieid)})
                 CREATE (m) -[:HAS_RATING]-> (r)
             """,
 
             # Movie -> Genre <- Director -> Movie
             "movie_director_genre": """
-                USING PERIODIC COMMIT 1024
+                // USING PERIODIC COMMIT 1024
                 LOAD CSV WITH HEADERS FROM "file://""" + file_path_generator("moviestodirectors") + """" AS row FIELDTERMINATOR ';'
-                WITH directorid = toInteger(row.directorid), movieid = toInteger(row.movieid) 
-                MATCH (m:Movie {id: movieid})
-                MATCH (d:Director {id: directorid})
-                MATCH (g:Genre {movieid: movieid, directorid: directorid})
+                MATCH (m:Movie {id: toInteger(row.movieid)})
+                MATCH (d:Director {id: toInteger(row.directorid)})
+                MATCH (g:Genre {movieid: toInteger(row.movieid), directorid: toInteger(row.directorid)})
                 CREATE (d) -[:DIRECTED]-> (m)
                 CREATE (d) -[:DIRECTS]-> (g)
                 CREATE (m) -[:IN_GENRE]-> (g)
-                
             """,
 
             # Movie -> RunningTime
             "movie_runningtime": """
-                USING PERIODIC COMMIT 1024
+                // USING PERIODIC COMMIT 1024
                 LOAD CSV WITH HEADERS FROM "file://""" + file_path_generator("_cleaned_runningtimes") + """" AS row FIELDTERMINATOR ';'
-                WITH movieid = toInteger(row.movieid)
-                MATCH (m:Movie {id: movieid})
-                MATCH (rt:RunningTime {movieid: movieid})
+                MATCH (m:Movie {id: toInteger(row.movieid)})
+                MATCH (rt:RunningTime {movieid: toInteger(row.movieid)})
                 CREATE (m) -[:HAS_RUNNINGTIME]-> (rt)
             """,
 
             # Movie -> Writer
             "movie_writer": """
-                USING PERIODIC COMMIT 1024
-                LOAD CSV WITH HEADERS FROM "file://""" + file_path_generator("moviestowritters") + """" AS row FIELDTERMINATOR ';'
+                // USING PERIODIC COMMIT 1024
+                LOAD CSV WITH HEADERS FROM "file://""" + file_path_generator("moviestowriters") + """" AS row FIELDTERMINATOR ';'
                 MATCH (m:Movie {id: toInteger(row.movieid)})
                 MATCH (w:Writer {id: toInteger(row.writerid)})
                 CREATE (w) -[:WROTE {addition: row.addition}]-> (m)
@@ -136,11 +132,11 @@ DATA_IMPORT = {
 
             # Movie -> Actor
             "movie_actor": """
-                USING PERIODIC COMMIT 1024
+                // USING PERIODIC COMMIT 1024
                 LOAD CSV WITH HEADERS FROM "file://""" + file_path_generator("_cleaned_moviestoactors") + """" AS row FIELDTERMINATOR ';'
                 MATCH (m:Movie {id: toInteger(row.movieid)})
                 MATCH (a:Actor {id: toInteger(row.actorid)})
-                WITH m,a
+                WITH m,a,row
                 CREATE (a) -[r:ACTED_IN {as_character: row.as_character, leading: toInteger(row.leading)}]-> (m)
             """
         }
