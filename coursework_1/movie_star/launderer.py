@@ -48,7 +48,8 @@ class DataCleanup:
 
         # Save the cleaned data back to csv
         dataframe.to_csv(
-            os.path.join(DATA_DIRECTORY, self.cleaned_file_prefix + file_name)
+            os.path.join(DATA_DIRECTORY, self.cleaned_file_prefix + file_name),
+            sep=";"
         )
 
 
@@ -178,11 +179,11 @@ class RunningTimes(DataCleanup):
             dataframe.columns = ['country', 'addition', 'time']
 
             # Remove numbers and leave countries only
-            dataframe.loc[dataframe['country'].apply(lambda i: i.isdigit()), 'country'] = ""
+            dataframe.loc[dataframe['country'].apply(lambda i: i.isdigit()), 'country'] = "N"
             dataframe['country'] = dataframe['country'].apply(lambda x: x.split(":")[0])
 
             # Replace the NaNs with blanks
-            dataframe.loc[dataframe['addition'].apply(lambda x: not type(x) == str), 'addition'] = ""
+            dataframe.loc[dataframe['addition'].apply(lambda x: not type(x) == str), 'addition'] = "N"
 
             return dataframe
 

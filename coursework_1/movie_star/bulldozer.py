@@ -58,16 +58,16 @@ class Task:
             session.read_transaction(runner)
 
 
-class CreateStructure(Task):
-    """
-    Create the structure of the database; the nodes, labels and relationships
-    """
-
-    __slots__ = ()
-
-    def __call__(self):
-
-        self.run_cypher(CREATE_STRUCTURE)
+# class CreateStructure(Task):
+#     """
+#     Create the structure of the database; the nodes, labels and relationships
+#     """
+#
+#     __slots__ = ()
+#
+#     def __call__(self):
+#
+#         self.run_cypher(CREATE_STRUCTURE)
 
 
 class ImportData(Task):
@@ -86,19 +86,32 @@ class ImportData(Task):
 
     def __relationships(self):
         """ Import and create relationships"""
-        pass
+        relationships = DATA_IMPORT['data_import']['relationships']
+        for rel in relationships.keys():
+            self.run_cypher(relationships[rel])
 
     def __indexes(self):
         """ Create indexes """
-        pass
+        for index in DATA_IMPORT['indexes']:
+            self.run_cypher(index)
 
     def __call__(self):
 
-        print("Creating constraints ...")
-        self.__constraints()
+        if input("Create constraints? [y/N]: ").lower() == "y":
+            print("\nCreating constraints ...\n")
+            self.__constraints()
 
-        print("Creating entities ...")
-        self.__entities()
+        if input("Create entities? [y/N]: ").lower() == "y":
+            print("\nCreating entities ...\n")
+            self.__entities()
+
+        if input("Create relationships? [y/N]: ").lower() == "y":
+            print("\nCreating relationships ...\n")
+            self.__relationships()
+
+        if input("Create indexes? [y/N]: ").lower() == "y":
+            print("\nCreating indexes ...\n")
+            self.__indexes()
 
 
 class Queries(Task):
