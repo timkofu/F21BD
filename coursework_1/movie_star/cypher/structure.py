@@ -4,7 +4,7 @@ CREATE_STRUCTURE = """
 CREATE 
   (`0` :Genre {directorid:'integer',movieid:'integer',genre:'string'}) ,
   (`1` :Director {id:'integer',name:'string',rate:'float',gross:'float',num:'integer'}) ,
-  (`2` :Movie {id:'integer',title:'string',year:'integer'}) ,
+  (`2` :Movie {id:'integer',title:'string',year:'date'}) ,
   (`3` :Writer {id:'integer',name:'string'}) ,
   (`4` :Actor {id:'integer',name:'string',sex:'string'}) ,
   (`5` :RunningTime {movieid:'integer',country:'string',addition:'string',time:'integer'}) ,

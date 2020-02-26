@@ -1,16 +1,21 @@
 """ The Queries (Task 3) """
 
+import os
+import tempfile
 from getpass import getpass
+from webbrowser import open_new_tab
+
 
 try:
     from neo4j import GraphDatabase
+    from tabulate import tabulate
 except ImportError:
-    GraphDatabase = None  # To please PyCharm, but not needed
+    GraphDatabase = tabulate = None  # To please PyCharm, but not needed
     print("Please install Neo4j Python library: pip install neo4j")
     exit()
 
-from movie_star import DATA_DIRECTORY
-from movie_star.cypher.structure import CREATE_STRUCTURE
+
+from movie_star.cypher.informer import QUERIES
 from movie_star.cypher.data_import import DATA_IMPORT
 
 
@@ -50,12 +55,16 @@ class Task:
         :param cypher_command:
         :return: None
         """
-        def runner(tx):
-            for record in tx.run(cypher_command):
-                print(record)
 
-        with self.n4j_handle.session() as session:
-            session.read_transaction(runner)
+        if not cypher_command.isspace():  # May be an empty string
+
+            def runner(tx):
+                for record in tx.run(cypher_command):
+                    # result.append(record)
+                    yield record
+
+            with self.n4j_handle.session() as session:
+                session.read_transaction(runner)
 
 
 # class CreateStructure(Task):
@@ -97,19 +106,19 @@ class ImportData(Task):
 
     def __call__(self):
 
-        if input("Create constraints? [y/N]: ").lower() == "y":
+        if input("\nCreate constraints? [Y/n]: ").lower() in ("y", ""):
             print("\nCreating constraints ...\n")
             self.__constraints()
 
-        if input("Create entities? [y/N]: ").lower() == "y":
+        if input("\nCreate entities? [Y/n]: ").lower() in ("y", ""):
             print("\nCreating entities ...\n")
             self.__entities()
 
-        if input("Create relationships? [y/N]: ").lower() == "y":
+        if input("\nCreate relationships? [Y/n]: ").lower() in ("y", ""):
             print("\nCreating relationships ...\n")
             self.__relationships()
 
-        if input("Create indexes? [y/N]: ").lower() == "y":
+        if input("\nCreate indexes? [Y/n]: ").lower() in ("y", ""):
             print("\nCreating indexes ...\n")
             self.__indexes()
 
@@ -119,5 +128,27 @@ class Queries(Task):
 
     def __call__(self):
         """ Execute the queries and print results """
-        pass
 
+        # results = []
+
+        for question in QUERIES.keys():
+
+            query = QUERIES[question]
+            # result = self.run_cypher(query)
+            print(self.run_cypher(query))
+
+            # results.append((question, query, result))
+
+        # html = tabulate(
+        #     results,
+        #     headers=("Question", "Answer", "Cypher Query"),
+        #     tablefmt="html"
+        # )
+        #
+        # with open("results.html", "w") as tmp:
+        #     tmp.write(html)
+        #
+        # open_new_tab(os.path.join(
+        #         os.path.dirname(os.path.realpath(__file__)), "results.html"
+        #     )
+        # )

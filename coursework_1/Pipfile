@@ -9,6 +9,9 @@ ipython = "*"
 [packages]
 neo4j = "*"
 pandas = "*"
+colorama = "*"
+blessings = "*"
+tabulate = "*"
 
 [requires]
 python_version = "3.8"

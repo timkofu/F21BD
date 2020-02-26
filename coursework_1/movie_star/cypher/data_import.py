@@ -50,7 +50,7 @@ DATA_IMPORT = {
             "movies": f"""
                 // USING PERIODIC COMMIT 1024
                 LOAD CSV WITH HEADERS FROM "file://""" + file_path_generator("_cleaned_movies") + """" AS row FIELDTERMINATOR ';'
-                MERGE (m:Movie {id: toInteger(row.movieid), title: row.title, year: toInteger(row.year)})
+                MERGE (m:Movie {id: toInteger(row.movieid), title: row.title, year: date({ year: toInteger(row.year) })})
                 RETURN count(m)
             """,
 
