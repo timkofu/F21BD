@@ -3,8 +3,7 @@
 import os
 import tempfile
 from getpass import getpass
-from webbrowser import open_new_tab
-
+from pprint import pformat
 
 try:
     from neo4j import GraphDatabase
@@ -13,7 +12,6 @@ except ImportError:
     GraphDatabase = tabulate = None  # To please PyCharm, but not needed
     print("Please install Neo4j Python library: pip install neo4j")
     exit()
-
 
 from movie_star.cypher.informer import QUERIES
 from movie_star.cypher.data_import import DATA_IMPORT
@@ -58,13 +56,17 @@ class Task:
 
         if not cypher_command.isspace():  # May be an empty string
 
+            results = []
+
             def runner(tx):
                 for record in tx.run(cypher_command):
                     # result.append(record)
-                    yield record
+                    results.append(record.values())
 
             with self.n4j_handle.session() as session:
                 session.read_transaction(runner)
+
+            return results
 
 
 # class CreateStructure(Task):
@@ -129,26 +131,30 @@ class Queries(Task):
     def __call__(self):
         """ Execute the queries and print results """
 
-        # results = []
+        results = []
 
         for question in QUERIES.keys():
-
             query = QUERIES[question]
-            # result = self.run_cypher(query)
-            print(self.run_cypher(query))
+            result = self.run_cypher(query)
 
-            # results.append((question, query, result))
+            results.append((
+                question,
+                " ".join(query.split(" ")),  # Remove extra spaces
+                f'{os.linesep}'.join('; '.join(str(e).replace('\n', " ") for e in element)
+                                     for element in (row for row in (result for result in result)))
+            ))
+
+        print(tabulate(
+            results,
+            headers=("Question", "Cypher Query", "Answer"),
+            tablefmt="grid"
+        ))
 
         # html = tabulate(
         #     results,
-        #     headers=("Question", "Answer", "Cypher Query"),
+        #     headers=("Question", "Cypher Query", "Answer"),
         #     tablefmt="html"
         # )
         #
-        # with open("results.html", "w") as tmp:
-        #     tmp.write(html)
-        #
-        # open_new_tab(os.path.join(
-        #         os.path.dirname(os.path.realpath(__file__)), "results.html"
-        #     )
-        # )
+        # with open("results.html", "wb") as tmp:
+        #     tmp.write(html.encode("utf8"))

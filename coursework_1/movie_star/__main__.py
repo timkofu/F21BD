@@ -61,8 +61,10 @@ if __name__ == "__main__":
             ImportData()()
 
         print(terminal.bold + terminal.green + "\n\n## QUERIES ##\n" + terminal.normal)
-        print("\nRunning queries ...\n")
-        Queries()()
+        if input("Run queries? [Y/n]: ").lower() in ("y", ""):
+
+            print("\nRunning queries ...\n")
+            Queries()()
 
     except KeyboardInterrupt:
         exit()

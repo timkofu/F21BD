@@ -34,7 +34,8 @@ QUERIES = {
         RETURN count(m)
     """,
     8: """
-        MATCH (m:Actor{sex:"M"}) -[:ACTED_IN]-> (mv:Movie) <-[:ACTED_IN]- (f:Actor{sex:"F"})
+        MATCH (m:Actor{sex:"M"}) -[:ACTED_IN]-> 
+        (mv:Movie) <-[:ACTED_IN]- (f:Actor{sex:"F"})
         WITH count(mv) AS movie_count, f, m
         WHERE movie_count > 10
         RETURN m.name, f.name, movie_count
@@ -64,14 +65,15 @@ QUERIES = {
         // Wrong
     """,
     11: """
-        MATCH (m:Movie)
-        WHERE m.votes >= 10000
-        RETURN m.title, m.votes order by m.votes desc limit 3
+        MATCH (m:Movie) -[:HAS_RATING]-> (r:Rating)
+        WHERE r.votes >= 10000
+        RETURN m.title, r.votes order by r.votes desc limit 3
     """,
     12: """
-        MATCH (h:Actor{name:"Hamill, Mark (i)"}), (m:Actor{name:"Mcgregor, Ewan"}),
-        shortest_path = shortestPath((h) -[:ACTED_IN*1..7]- (m))
-        return shortest_path
+        MATCH (h:Actor{name:"Hamill, Mark (i)"}),
+        (m:Actor{name:"Mcgregor, Ewan"}),
+        shortest_path = shortestPath((h) -[:ACTED_IN*]- (m))
+        return nodes(shortest_path), relationships(shortest_path)
     """,
     13: """
         MATCH (a:Actor) -[:ACTED_IN]-> (m:Movie) -[:IN_GENRE]-> (g:Genre)
