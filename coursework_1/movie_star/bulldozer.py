@@ -1,9 +1,7 @@
 """ The Queries (Task 3) """
 
 import os
-import tempfile
 from getpass import getpass
-from pprint import pformat
 
 try:
     from neo4j import GraphDatabase
@@ -67,18 +65,6 @@ class Task:
                 session.read_transaction(runner)
 
             return results
-
-
-# class CreateStructure(Task):
-#     """
-#     Create the structure of the database; the nodes, labels and relationships
-#     """
-#
-#     __slots__ = ()
-#
-#     def __call__(self):
-#
-#         self.run_cypher(CREATE_STRUCTURE)
 
 
 class ImportData(Task):
