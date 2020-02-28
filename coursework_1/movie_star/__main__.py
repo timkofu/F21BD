@@ -18,8 +18,7 @@ from movie_star.launderer import (
 
 from movie_star.bulldozer import (
     Queries,
-    ImportData,
-    # CreateStructure
+    ImportData
 )
 # Import the task executors
 
@@ -47,12 +46,6 @@ if __name__ == "__main__":
 
         # Execute tasks
         print("\n\nExecuting tasks ....\n")
-
-        # if input("This works best with a fresh neo4j database. Proceed? [Y/n]: ").lower() in ("y", ""):
-        #
-        #     # if input("\nCreate structure? [y/N]: ").lower() == "y":
-        #     #     print("\nCreating structure ....\n")
-        #     #     CreateStructure()()
 
         print(terminal.bold + terminal.red + "\n\n## DATA IMPORT ##\n" + terminal.normal)
         print("This works best with a fresh neo4j database")

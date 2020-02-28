@@ -16,7 +16,7 @@ def file_path_generator(file_name):
 
 DATA_IMPORT = {
 
-    # Create constraints
+    # Create constraints (The IDs on these nodes must be unique)
     "constraints": [
         "CREATE CONSTRAINT ON (a:Actor) ASSERT a.id IS UNIQUE",
         "CREATE CONSTRAINT ON (m:Movie) ASSERT m.id IS UNIQUE",
