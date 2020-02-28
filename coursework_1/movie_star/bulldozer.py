@@ -149,12 +149,3 @@ class Queries(Task):
             headers=("Question", "Cypher Query", "Answer"),
             tablefmt="grid"
         ))
-
-        # html = tabulate(
-        #     results,
-        #     headers=("Question", "Cypher Query", "Answer"),
-        #     tablefmt="html"
-        # )
-        #
-        # with open("results.html", "wb") as tmp:
-        #     tmp.write(html.encode("utf8"))
