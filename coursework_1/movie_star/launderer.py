@@ -156,7 +156,7 @@ class Actors(DataCleanup):
             regex = re.compile(r'^[^a-zA-Z\d]+')  # Remove every leading non-alphanumeric character
             dataframe['name'] = dataframe['name'].apply(lambda s: capwords(
                 regex.sub('', s).replace("'", " ")
-            ).replace("(i)", "(I)"))
+            ))  # .replace("(i)", "(I)")) -- didn't make it into the release
 
             return dataframe
 
