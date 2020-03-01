@@ -40,7 +40,7 @@ QUERIES = {
     6: """
         // Find movies these two actors acted in
         MATCH (m:Movie) <-[:ACTED_IN]- (:Actor{name: "Mcgregor, Ewan"})
-        MATCH (m) <-[:ACTED_IN]- (:Actor{name: "Carlyle, Robert (I)"})
+        MATCH (m) <-[:ACTED_IN]- (:Actor{name: "Carlyle, Robert (i)"})
         // And give me their titles
         RETURN m.title
     """,
@@ -110,7 +110,7 @@ QUERIES = {
     """,
     12: """
         // Find these two actors
-        MATCH (h:Actor{name:"Hamill, Mark (I)"}),
+        MATCH (h:Actor{name:"Hamill, Mark (i)"}),
         (m:Actor{name:"Mcgregor, Ewan"}),
         // And find the shortest path between them
         shortest_path = shortestPath((h) -[:ACTED_IN*]- (m))
