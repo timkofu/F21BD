@@ -2,7 +2,7 @@
 blessings==1.7
 colorama==0.4.3
 neo4j==1.7.6
-neobolt==1.7.16
+neobolt==1.7.17
 neotime==1.7.4
 numpy==1.18.1
 pandas==1.0.1
